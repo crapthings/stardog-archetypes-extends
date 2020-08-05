@@ -1,0 +1,29 @@
+@prefix rule: <tag:stardog:api:rule:> .
+@prefix skosextends: <http://www.w3.org/2004/02/skos/skos-extends#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skosextends:coordinateOf a owl:ObjectProperty ;
+  owl:inverseOf skosextends:hasCoordinate ;
+  rdfs:subPropertyOf skos:semanticRelation ;
+  rdfs:domain skos:Concept ;
+  rdfs:range rdf:List .
+
+skosextends:hasCoordinate a owl:ObjectProperty ;
+  owl:inverseOf skosextends:coordinateOf ;
+  rdfs:subPropertyOf skos:semanticRelation ;
+  rdfs:domain rdf:List ;
+  rdfs:range skos:Concept .
+
+skosextends:hasCoordinatePart a owl:ObjectProperty ;
+  rdfs:subPropertyOf skos:semanticRelation ;
+  rdfs:domain skos:Concept ;
+  rdfs:range skos:Concept .
+
+IF {
+  ?concept skosextends:coordinateOf ?list .
+  ?list rdf:rest*/rdf:first ?conceptIRI .
+} THEN {
+  ?concept skosextends:hasCoordinatePart ?conceptIRI .
+}
