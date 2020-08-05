@@ -1,1 +1,1 @@
-prefix skosextends: <http://fawuapp.com/skos-extends#>
+prefix skosextends: <http://www.w3.org/2004/02/skos/skos-extends#>
